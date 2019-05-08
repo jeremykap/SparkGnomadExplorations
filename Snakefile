@@ -26,7 +26,7 @@ VARIANTS_DATA = Path("data/variants/")
 rule all:
     input:
         # expand generates the list of the final files we want
-        expand(str(VARIANTS_DATA / "{chrom_id}.tsv")    , chrom_id=chroms.keys())
+        expand(str(VARIANTS_DATA / "{chrom_id}.tsv.gz")    , chrom_id=chroms.keys())
 
 rule download:
     output:
