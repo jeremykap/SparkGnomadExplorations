@@ -16,7 +16,6 @@ for chrom in config["GENOMES_TO_DOWNLOAD"]:
 for chrom in config["EXOMES_TO_DOWNLOAD"]:
     chroms["exome_"+chrom] = GENOME_DOWNLOAD.format(chrom=chrom)
 
-print(chroms)
 def link_chroms_to_link(wildcards):
     return chroms[wildcards.chrom_id]
 
@@ -42,7 +41,7 @@ rule download:
 
 rule melt_vcf:
     input: rules.download.output
-    output: str(VARIANTS_DATA / "{chrom_id}.tsv")
+    output: str(VARIANTS_DATA / "{chrom_id}.tsv.gz")
     shell:
         """
         gunzip -c {input} | python scripts/melt_vcf.py  | gzip -c >  {output}
