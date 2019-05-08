@@ -1,3 +1,4 @@
 .snakemake/
 .vscode/
 data/
+Pipfile.lock
