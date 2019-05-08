@@ -10,6 +10,7 @@ snakemake = "*"
 jupyterlab = "*"
 pyspark = "*"
 pyvcf = "*"
+datrie-2019 = "*"
 
 [requires]
 python_version = "3.7"
