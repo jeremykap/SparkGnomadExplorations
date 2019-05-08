@@ -11,6 +11,7 @@ jupyterlab = "*"
 pyspark = "*"
 pyvcf = "*"
 datrie-2019 = "*"
+pysam = "*"
 
 [requires]
 python_version = "3.7"

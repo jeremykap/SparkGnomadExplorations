@@ -14,7 +14,7 @@ for chrom in config["GENOMES_TO_DOWNLOAD"]:
     chroms["genome_"+chrom] = GENOME_DOWNLOAD.format(chrom=chrom)
 
 for chrom in config["EXOMES_TO_DOWNLOAD"]:
-    chroms["exome_"+chrom] = GENOME_DOWNLOAD.format(chrom=chrom)
+    chroms["exome_"+chrom] = EXOME_DOWNLOAD.format(chrom=chrom)
 
 def link_chroms_to_link(wildcards):
     return chroms[wildcards.chrom_id]
