@@ -3,9 +3,20 @@ from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
 from pathlib import Path
 import os
 configfile: "chrom_list.yaml"
-chroms_to_download = ["genome_exome","exome_all"]
-chroms = {key:value for key,value in config["chroms"].items() if key in chroms_to_download }
+GENOMES_TO_DOWNLOAD = config["GENOMES_TO_DOWNLOAD"]
+EXOMES_TO_DOWNLOAD = config["EXOMES_TO_DOWNLOAD"]
 
+EXOME_DOWNLOAD = "https://storage.googleapis.com/gnomad-public/release/2.1.1/vcf/exomes/gnomad.exomes.r2.1.1.sites.{chrom}.vcf.bgz"
+GENOME_DOWNLOAD = "https://storage.googleapis.com/gnomad-public/release/2.1.1/vcf/genomes/gnomad.genomes.r2.1.1.sites.{chrom}.vcf.bgz"
+
+chroms = {}
+for chrom in config["GENOMES_TO_DOWNLOAD"]:
+    chroms["genome_"+chrom] = GENOME_DOWNLOAD.format(chrom=chrom)
+
+for chrom in config["EXOMES_TO_DOWNLOAD"]:
+    chroms["exome_"+chrom] = GENOME_DOWNLOAD.format(chrom=chrom)
+
+print(chroms)
 def link_chroms_to_link(wildcards):
     return chroms[wildcards.chrom_id]
 
@@ -34,5 +45,5 @@ rule melt_vcf:
     output: str(VARIANTS_DATA / "{chrom_id}.tsv")
     shell:
         """
-        gunzip -c {input} | python scripts/melt_vcf.py  > {output}
+        gunzip -c {input} | python scripts/melt_vcf.py  | gzip -c >  {output}
         """
