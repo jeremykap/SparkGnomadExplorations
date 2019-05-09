@@ -6,12 +6,10 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-snakemake = "*"
 jupyterlab = "*"
 pyspark = "*"
 pyvcf = "*"
-datrie-2019 = "*"
 pysam = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.4"
